@@ -4,8 +4,10 @@ const router = require('express').Router();
 router.get('/', function (req, res) {
     res.json({ message: "Bienvenido a la API de Scauth" });
 })
-router.use('/professors', require('./professors'));
-router.use('/students', require('./students'));
+router.use('/careers', require('./careers'));
+router.use('/institutes', require('./institutes'));
+router.use('/admins', require('./admins'));
+router.use('/users', require('./users'));
 
 // Error handling
 router.use(function(err, req, res, next){

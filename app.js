@@ -1,7 +1,28 @@
-const express = require('express');
-const app = express();
-const router = require('./src/routes/index');
-const port = 3000;
+const express   = require('express');
+const app       = express();
+const router    = require('./src/routes/index');
+const port      = 3000;
+const db = require('./src/configs/database');
+
+// connection to database
+db.connect(function(err) {
+  if (err) {
+    console.error('error connecting ' + err.stack);
+    return;
+  }
+
+  console.log('connected to MySQL as id ' + db.threadId);
+})
+
+// query example
+/*db.query( 
+  'SELECT * FROM sakila.actor WHERE actor_id = 100'
+  ,function(err, result, fields) {
+    // if there's an error, return the error
+    if (err) throw err;
+    // if not, return the result
+    else return console.log(result);
+});*/
 
 // request logging
 function logger(req, res, next) {
@@ -9,6 +30,7 @@ function logger(req, res, next) {
     next();
 }
 
+app.use(express.json());
 app.use(logger);
 app.use('/', router);
 
