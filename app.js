@@ -5,13 +5,13 @@ const port      = 3000;
 const db = require('./src/configs/database');
 
 // connection to database
-db.connect(function(err) {
+db.pool.getConnection(function(err, connection) {
   if (err) {
     console.error('error connecting ' + err.stack);
     return;
   }
 
-  console.log('connected to MySQL as id ' + db.threadId);
+  console.log('connected to MySQL as id ' + connection.threadId);
 })
 
 // query example

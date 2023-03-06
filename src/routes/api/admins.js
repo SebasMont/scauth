@@ -6,8 +6,8 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    db.query(
-        `SELECT * FROM uaeh.admins WHERE actor_id = ${req.params.id}`,
+    db.connection.query(
+        `SELECT * FROM ${db.dbParams.database}.admins WHERE actor_id = ${req.params.id}`,
         function(err, result, fields) {
             if (err) return res.json(err);
 

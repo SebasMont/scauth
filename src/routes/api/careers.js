@@ -6,8 +6,8 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    db.query(
-        `SELECT * FROM uaeh.careers WHERE id = ${req.params.id}`,
+    db.connection.query(
+        `SELECT * FROM ${db.dbParams.database}.careers WHERE id = ${req.params.id}`,
         function(err, result, fields) {
             if (err) return res.json(err);
 
