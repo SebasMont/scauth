@@ -9,7 +9,12 @@ router.get('/', (req, res) => {
 router.get('/id/:id', (req, res) => {
     db.pool.getConnection(function (err, connection) {
         connection.query(
-            `SELECT * FROM ${db.dbParams.database}.users WHERE id = ${req.params.id}`,
+            `SELECT users.id, users.name, users.last_name, users.active, users.primary_card,
+            roles.role, institutes.name AS institute, careers.career FROM ${db.dbParams.database}.users JOIN 
+            ${db.dbParams.database}.roles ON users.role_id = roles.id 
+            JOIN institutes ON users.institute_id = institutes.id
+            JOIN careers ON users.career_id = careers.id
+            WHERE users.id = ${req.params.id}`,
             function(err, result, fields) {
                 if (err) return res.json(err);
         
@@ -27,7 +32,12 @@ router.get('/id/:id', (req, res) => {
 router.get('/prim_card/:primary_card', (req, res) => {
     db.pool.getConnection(function (err, connection) {
         connection.query(
-            `SELECT * FROM ${db.dbParams.database}.users WHERE primary_card = ${req.params.primary_card}`,
+            `SELECT users.id, users.name, users.last_name, users.active, users.primary_card,
+            roles.role, institutes.name AS institute, careers.career FROM ${db.dbParams.database}.users JOIN 
+            ${db.dbParams.database}.roles ON users.role_id = roles.id 
+            JOIN institutes ON users.institute_id = institutes.id
+            JOIN careers ON users.career_id = careers.id
+            WHERE users.primary_card = ${req.params.primary_card}`,
             function(err, result, fields) {
                 if (err) return res.json(err);
     
