@@ -37,7 +37,8 @@ router.get('/prim_card/:primary_card', (req, res) => {
             ${db.dbParams.database}.roles ON users.role_id = roles.id 
             JOIN institutes ON users.institute_id = institutes.id
             JOIN careers ON users.career_id = careers.id
-            WHERE users.primary_card = ${req.params.primary_card}`,
+            WHERE users.primary_card = ${req.params.primary_card}
+            OR WHERE users.alternative_card = ${req.params.primary_card}`,
             function(err, result, fields) {
                 if (err) return res.json(err);
     
